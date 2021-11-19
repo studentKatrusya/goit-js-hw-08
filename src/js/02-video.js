@@ -10,10 +10,10 @@ const iframePlayer = new Vimeo.Player(iframe);
 // Обновляем в локальном хранилище текущую позицию
 const onPlay = function (data) {
     localStorage.setItem("videoplayer-current-time", data.seconds)
-    // data is an object containing properties specific to that event
+    // data это объект, содержащий свойства, специфичные для этого события
 };
 
-// Получаем текущую из локального хранилища
+// Получаем текущую позицию из локального хранилища
 const currentTime = localStorage.getItem("videoplayer-current-time");
 
 // устанавливаем на плеере сохраненную текущую позицию

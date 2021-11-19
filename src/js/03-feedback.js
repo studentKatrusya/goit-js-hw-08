@@ -1,6 +1,5 @@
 import throttle from 'lodash.throttle';
-// import '../css/common.css';
-// import '../css/feedback.css';
+
 
 // const STORAGE_KEY = "feedback-form-state";
 
@@ -10,7 +9,7 @@ const refs = {
   input: document.querySelector('.feedback-form  input'),
 };
 
-const formData = {}; 
+let formData = {};
 
 refs.form.addEventListener('submit', onFormSubmit);
 refs.form.addEventListener('input', throttle(onTextareaInput, 500));
@@ -24,15 +23,13 @@ populateTextarea();
  */
 function onFormSubmit(evt) {
     evt.preventDefault();
-
-    // console.log("Send form")
-
-    evt.currentTarget.reset();
+ 
+  console.log(formData);
+  formData = {};
+  evt.currentTarget.reset();
 
   localStorage.removeItem("feedback-form-state");
-   console.log(formData);
 }
-
 
 /*
  - Получаем значение поля
@@ -42,12 +39,8 @@ function onFormSubmit(evt) {
 function onTextareaInput(evt) {
  formData[evt.target.name] = evt.target.value;
 
-  //  console.log(formData);
+
  localStorage.setItem("feedback-form-state", JSON.stringify(formData))
-  // const message = evt.target.value;
-  //   console.log(message)   
-  //   localStorage.setItem("feedback-form-state", message)
-  
 }
 
 /*
@@ -56,17 +49,24 @@ function onTextareaInput(evt) {
  */
 function populateTextarea() {
 
-    const savedMessage = localStorage.getItem("feedback-form-state");
-    
-  
-    if (savedMessage) {
-      
-      const parsedMessage = JSON.parse(savedMessage)
-      // console.log(savedMessage);
-      // console.log(parsedMessage);
-       refs.input.value = parsedMessage.email,
-       refs.textarea.value = parsedMessage.message;
-      
+  const savedMessage = localStorage.getItem("feedback-form-state");
+
+  if (savedMessage) {
+    const parsedMessage = JSON.parse(savedMessage);
+
+    formData = parsedMessage;
+
+    refs.input.value = parsedMessage.email;
+    refs.textarea.value = parsedMessage.message;
+
+    if (parsedMessage.email === undefined ) {
+      return (refs.input.value = '');
+             
     }
+    if (parsedMessage.message === undefined) {
+      (refs.textarea.value = '');
+    }
+  }
 
 }
+
