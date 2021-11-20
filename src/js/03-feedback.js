@@ -56,16 +56,16 @@ function populateTextarea() {
 
     formData = parsedMessage;
 
-    refs.input.value = parsedMessage.email;
-    refs.textarea.value = parsedMessage.message;
+    refs.input.value = parsedMessage.email || "";
+    refs.textarea.value = parsedMessage.message || "";
 
-    if (parsedMessage.email === undefined ) {
-      return (refs.input.value = '');
+    // if (parsedMessage.email === undefined ) {
+    //   return (refs.input.value = '');
              
-    }
-    if (parsedMessage.message === undefined) {
-      (refs.textarea.value = '');
-    }
+    // }
+    // if (parsedMessage.message === undefined) {
+    //   (refs.textarea.value = '');
+    // }
   }
 
 }
